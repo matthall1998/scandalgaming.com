@@ -15,6 +15,12 @@ npm run preview -- --host 127.0.0.1
 
 Deploy `dist/` to any static HTTPS host. The build includes TypeScript checking. HTTPS is required for the Clipboard API; when copying is unavailable the command is selected for manual copying.
 
+### Coolify
+
+Use the Nixpacks build pack with **Is it a static site?** enabled, base directory `/`, publish directory `/dist`, and exposed port `80`. Leave custom install/build/start commands blank so `nixpacks.toml` supplies the build steps. No Node server or Vite preview process is needed in production.
+
+The Nixpacks configuration pins a newer Node 22 package snapshot and uses `npm ci --include=dev --include=optional --engine-strict`. Older snapshots can supply Node 22.11, which is incompatible with Vite and Rolldown and can cause npm to skip the optional Linux native binding. The lockfile already includes that binding; do not delete it as a deployment workaround. Redeploy without the build cache after changing the build configuration. The build log should report Node 22.12 or newer with no engine warnings.
+
 ## Site configuration
 
 Edit `src/site.ts`:
